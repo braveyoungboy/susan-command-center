@@ -1,0 +1,50 @@
+{
+  "active": true,
+  "paused": false,
+  "day_number": 2,
+  "current_date": "2026-11-24",
+  "metrics": {
+    "followers": "0",
+    "following": "0",
+    "posts": "1"
+  },
+  "gallery_count": 0,
+  "today_schedule": [
+    {
+      "type": "tweet",
+      "target_time": "2026-11-24 08:37:42",
+      "preview": "paling males emang bangun pagi.. secangkir matcha latte penyelamat hidup ☕✨",
+      "target_ts": 1795484262.0,
+      "done": false
+    },
+    {
+      "type": "tweet",
+      "target_time": "2026-11-24 12:19:54",
+      "preview": "jam makan siang emang selalu penyelamat kewarasan budak korporat.. butuh asupan pelukan 🥺",
+      "target_ts": 1795497594.0,
+      "done": false
+    },
+    {
+      "type": "image",
+      "target_time": "2026-11-24 17:41:28",
+      "preview": "Candid pulang kantor / lift SCBD + caption santai",
+      "target_ts": 1795516888.0,
+      "done": false
+    },
+    {
+      "type": "tweet",
+      "target_time": "2026-11-24 22:53:11",
+      "preview": "udah di kasur, dingin bgt ranjangnya kalo sendirian.. cewe pemalu tp di kamar liar 🙈🌙",
+      "target_ts": 1795535591.0,
+      "done": false
+    }
+  ],
+  "history": [
+    {
+      "timestamp": "2026-11-24 02:28:49",
+      "text": "sendirian di kamar, mau tidur tapi pikiran malah melayang kemana-mana.. dingin bgt ranjangnya kalo sendirian gini tanpa ada yang angetin. ranjang segede ini rasanya mubazir bgt kalo ditidurin sendirian tiap malem 🥺 besok kerja lagi huhu selamat istirahat 🥺",
+      "media": null
+    }
+  ],
+  "r2_gallery": []
+}

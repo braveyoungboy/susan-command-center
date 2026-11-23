@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Captain X — Web Command Center</title>
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" href="https://abs.twimg.com/favicons/twitter.3.ico">
+  <style>
+    :root {
+      --bg: #0A0A0C;
+      --card-bg: #141418;
+      --card-border: #222228;
+      --primary: #FFCC00;
+      --primary-hover: #FFE066;
+      --text: #F4F4F5;
+      --text-muted: #A1A1AA;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-bottom: 50px;
+    }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 12, 0.90);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid var(--card-border);
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-badge {
+      font-size: 11px;
+      background: #1A1A22;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .cloud-pill {
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #122216;
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    .cloud-pill .dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--success);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    @media (min-width: 480px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .metric-card .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .metric-card .value {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+    /* Control Bar */
+    .control-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 22px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      flex: 1;
+      min-width: 130px;
+      background: #1C1C24;
+      color: var(--text);
+      border: 1.5px solid var(--card-border);
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+      border-color: var(--primary);
+    }
+    .btn-primary:active {
+      background: var(--primary-hover);
+    }
+    .btn-warning {
+      background: #3B2A08;
+      color: var(--warning);
+      border-color: var(--warning);
+    }
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      background: #111116;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+    .tab-item {
+      flex: 1;
+      text-align: center;
+      padding: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 7px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-item.active {
+      background: var(--primary);
+      color: #000;
+      font-weight: 900;
+    }
+    /* Schedule & History List */
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .item-time {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .badge-type {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .badge-tweet { background: #1E293B; color: #38BDF8; }
+    .badge-image { background: #3B1228; color: #F472B6; }
+    .item-body {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #E4E4E7;
+    }
+    .item-meta {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .status-done { color: var(--success); font-weight: 700; }
+    .status-wait { color: var(--warning); font-weight: 700; }
+    .cooldown-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+    .cooldown-ready { background: #132717; color: var(--success); }
+    .cooldown-locked { background: #2B1113; color: var(--danger); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand-title">
+      <span>CAPTAIN X</span>
+      <a href="https://x.com/susan_wen_lee" target="_blank" class="brand-badge">@susan_wen_lee</a>
+    </div>
+    <div class="cloud-pill" id="cloudStatus">
+      <div class="dot"></div>
+      <span>CLOUD 24/7</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 1. Live Report Metrics -->
+    <div class="section-title">📊 Live Analytics & Report</div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="label">Followers</div>
+        <div class="value" id="valFollowers">-</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Following</div>
+        <div class="value" id="valFollowing">-</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Total Posts</div>
+        <div class="value" id="valPosts">1</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Foto di R2</div>
+        <div class="value" id="valR2Photos">0</div>
+      </div>
+    </div>
+
+    <!-- 2. Controls -->
+    <div class="section-title">⚡ Kontrol Operasi Cloud</div>
+    <div class="control-card">
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="triggerPostNow()">
+          ⚡ Post Sekarang
+        </button>
+        <button class="btn btn-warning" id="btnPause" onclick="togglePause()">
+          ⏸ Pause
+        </button>
+        <button class="btn" onclick="fetchLiveState()">
+          🔄 Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Tabs: Akan Terupload / Sudah Terupload / Galeri R2 -->
+    <div class="tab-bar">
+      <div class="tab-item active" onclick="switchTab('queue')">⏳ Akan Terupload</div>
+      <div class="tab-item" onclick="switchTab('history')">✅ Sudah Terupload</div>
+      <div class="tab-item" onclick="switchTab('gallery')">🖼️ Galeri R2</div>
+    </div>
+
+    <!-- Tab Content: Queue -->
+    <div id="tabQueue">
+      <div id="queueList">Memuat jadwal...</div>
+    </div>
+
+    <!-- Tab Content: History -->
+    <div id="tabHistory" style="display: none;">
+      <div id="historyList">Memuat riwayat...</div>
+    </div>
+
+    <!-- Tab Content: Gallery R2 -->
+    <div id="tabGallery" style="display: none;">
+      <div id="galleryList">Memuat status galeri...</div>
+    </div>
+
+  </div>
+
+  <script>
+    const GITHUB_REPO = "braveyoungboy/captain-x-web";
+    let GH_TOKEN = localStorage.getItem("captain_x_token") || "";
+    let currentState = {};
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.getElementById('tabQueue').style.display = tabName === 'queue' ? 'block' : 'none';
+      document.getElementById('tabHistory').style.display = tabName === 'history' ? 'block' : 'none';
+      document.getElementById('tabGallery').style.display = tabName === 'gallery' ? 'block' : 'none';
+    }
+
+    async function fetchLiveState() {
+      try {
+        const res = await fetch('./state.json?t=' + Date.now());
+        if (!res.ok) throw new Error("Load state error: " + res.status);
+        currentState = await res.json();
+        renderUI(currentState);
+      } catch (err) {
+        console.warn("Using fallback:", err);
+      }
+    }
+
+    function renderUI(data) {
+      document.getElementById('valFollowers').innerText = data.metrics?.followers || "0";
+      document.getElementById('valFollowing').innerText = data.metrics?.following || "0";
+      document.getElementById('valPosts').innerText = data.metrics?.posts || data.completed_today || (data.history ? data.history.length : 1);
+      document.getElementById('valR2Photos').innerText = data.gallery_count || "0";
+
+      const btnPause = document.getElementById('btnPause');
+      if (data.paused) {
+        btnPause.innerHTML = '▶ Resume';
+        btnPause.className = 'btn btn-primary';
+      } else {
+        btnPause.innerHTML = '⏸ Pause';
+        btnPause.className = 'btn btn-warning';
+      }
+
+      // 3. Queue (Akan Terupload)
+      const qList = document.getElementById('queueList');
+      const schedule = data.today_schedule || [];
+      if (schedule.length === 0) {
+        qList.innerHTML = '<div class="item-card" style="text-align:center; color:#A1A1AA;">Belum ada jadwal hari ini</div>';
+      } else {
+        qList.innerHTML = schedule.map(item => `
+          <div class="item-card">
+            <div class="item-header">
+              <span class="item-time">⏰ ${item.target_time}</span>
+              <span class="badge-type badge-${item.type}">${item.type}</span>
+            </div>
+            <div class="item-body">${item.preview || (item.type === 'image' ? 'Foto Candid SCBD + Caption Santai' : 'Pemikiran Organik Susan')}</div>
+            <div class="item-meta">
+              <span>Status: <b class="${item.done ? 'status-done' : 'status-wait'}">${item.done ? '✓ SELESAI' : 'MENUNGGU'}</b></span>
+              <span>${item.completed_at || 'Anti-Round Slot'}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 4. History (Sudah Terupload)
+      const hList = document.getElementById('historyList');
+      const history = data.history || [];
+      if (history.length === 0) {
+        hList.innerHTML = '<div class="item-card" style="text-align:center; color:#A1A1AA;">Belum ada riwayat postingan</div>';
+      } else {
+        hList.innerHTML = history.slice(-20).reverse().map(h => `
+          <div class="item-card">
+            <div class="item-header">
+              <span class="item-time">✓ ${h.timestamp}</span>
+              <span class="badge-type badge-${h.media ? 'image' : 'tweet'}">${h.media ? 'FOTO' : 'TEKS'}</span>
+            </div>
+            <div class="item-body">${h.text}</div>
+            <div class="item-meta">
+              <a href="https://x.com/susan_wen_lee" target="_blank" style="color:var(--primary); text-decoration:none;">Lihat di X.com ↗</a>
+              <span>Status: Sukses</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 5. Gallery
+      const gList = document.getElementById('galleryList');
+      gList.innerHTML = `
+        <div class="item-card" style="text-align:center; padding:24px;">
+          <p style="color:#A1A1AA; margin-bottom:8px;">Bucket Cloudflare R2: <code>goldenarrow/susan/</code></p>
+          <p style="font-size:12.5px; color:var(--primary); line-height:1.6;">Foto di Cloudflare R2 ditarik otomatis oleh Cloud Engine saat slot jadwal foto tiba. Cooldown 14 hari aktif otomatis.</p>
+        </div>
+      `;
+    }
+
+    async function triggerPostNow() {
+      if (!confirm("Kirim 1 post Susan instan ke @susan_wen_lee sekarang?")) return;
+      if (!GH_TOKEN) {
+        const inputToken = prompt("Masukkan Token GitHub Anda (ghp_...):");
+        if (!inputToken) return;
+        GH_TOKEN = inputToken.trim();
+        localStorage.setItem("captain_x_token", GH_TOKEN);
+      }
+      const btn = event.target;
+      const origText = btn.innerHTML;
+      btn.innerHTML = "⏳ Mengirim ke Cloud...";
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/workflows/susan_runner.yml/dispatches`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${GH_TOKEN}`,
+            "Accept": "application/vnd.github.v3+json"
+          },
+          body: JSON.stringify({
+            ref: "main",
+            inputs: { action: "force_post_now" }
+          })
+        });
+
+        if (res.status === 204 || res.ok) {
+          alert("✅ Berhasil! GitHub Actions Cloud sedang memposting tweet Susan ke @susan_wen_lee. Tweet akan muncul dalam ~30-45 detik.");
+        } else {
+          const err = await res.text();
+          alert("Respon GitHub: " + err);
+        }
+      } catch (e) {
+        alert("Gagal koneksi: " + e.message);
+      } finally {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+        setTimeout(fetchLiveState, 15000);
+      }
+    }
+
+    async function togglePause() {
+      currentState.paused = !currentState.paused;
+      renderUI(currentState);
+      alert(currentState.paused ? "⏸ Jadwal ditunda (Paused)" : "▶ Jadwal dilanjutkan (Resumed)");
+    }
+
+    fetchLiveState();
+    setInterval(fetchLiveState, 15000);
+  </script>
+</body>
+</html>
