@@ -15,7 +15,8 @@
       "target_time": "2026-11-24 08:37:42",
       "preview": "paling males emang bangun pagi.. secangkir matcha latte penyelamat hidup ☕✨",
       "target_ts": 1795484262.0,
-      "done": false
+      "done": true,
+      "completed_at": "2026-11-24 08:37:42"
     },
     {
       "type": "tweet",
