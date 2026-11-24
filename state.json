@@ -13,7 +13,7 @@
     {
       "type": "tweet",
       "target_time": "2026-11-24 08:37:42",
-      "preview": "paling males emang bangun pagi.. secangkir matcha latte penyelamat hidup ☕✨",
+      "preview": "paling males emang bangun pagi.. secangkir matcha latte penyelamat hidup \u2615\u2728",
       "target_ts": 1795484262.0,
       "done": true,
       "completed_at": "2026-11-24 08:37:42"
@@ -21,9 +21,11 @@
     {
       "type": "tweet",
       "target_time": "2026-11-24 12:19:54",
-      "preview": "jam makan siang emang selalu penyelamat kewarasan budak korporat.. butuh asupan pelukan 🥺",
+      "preview": "jam makan siang emang selalu penyelamat kewarasan budak korporat.. butuh asupan pelukan \ud83e\udd7a",
       "target_ts": 1795497594.0,
-      "done": false
+      "done": true,
+      "completed_at": "2026-11-24 06:38:59",
+      "tweet_text": "paling males emang bangun pagi di hari senin.. tapi kalo ga kerja siapa yang mau bayarin jajan Susan tiap hari haha. have a productive day yaa \ud83e\udd0d"
     },
     {
       "type": "image",
@@ -35,7 +37,7 @@
     {
       "type": "tweet",
       "target_time": "2026-11-24 22:53:11",
-      "preview": "udah di kasur, dingin bgt ranjangnya kalo sendirian.. cewe pemalu tp di kamar liar 🙈🌙",
+      "preview": "udah di kasur, dingin bgt ranjangnya kalo sendirian.. cewe pemalu tp di kamar liar \ud83d\ude48\ud83c\udf19",
       "target_ts": 1795535591.0,
       "done": false
     }
@@ -43,7 +45,7 @@
   "history": [
     {
       "timestamp": "2026-11-24 02:28:49",
-      "text": "sendirian di kamar, mau tidur tapi pikiran malah melayang kemana-mana.. dingin bgt ranjangnya kalo sendirian gini tanpa ada yang angetin. ranjang segede ini rasanya mubazir bgt kalo ditidurin sendirian tiap malem 🥺 besok kerja lagi huhu selamat istirahat 🥺",
+      "text": "sendirian di kamar, mau tidur tapi pikiran malah melayang kemana-mana.. dingin bgt ranjangnya kalo sendirian gini tanpa ada yang angetin. ranjang segede ini rasanya mubazir bgt kalo ditidurin sendirian tiap malem \ud83e\udd7a besok kerja lagi huhu selamat istirahat \ud83e\udd7a",
       "media": null
     }
   ],
